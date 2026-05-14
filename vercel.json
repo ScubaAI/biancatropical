@@ -1,0 +1,22 @@
+// Vercel deployment configuration
+// Docs: https://vercel.com/docs/projects/project-configuration
+
+{
+  "functions": {
+    "api/**/*.ts": {
+      "runtime": "edge",
+      "maxDuration": 30
+    },
+    "app/api/**/route.ts": {
+      "runtime": "edge",
+      "maxDuration": 30
+    }
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "env": {
+    "NEXT_PUBLIC_APP_ENV": "production"
+  },
+  "regions": ["iad1"]
+}

@@ -1,0 +1,98 @@
+/* ============================================================
+   ANIMATIONS — Keyframes for tropical effects
+   ============================================================ */
+
+@keyframes neonPulse {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 7px #39FF14, 0 0 10px #39FF14, 0 0 21px #39FF14;
+  }
+  50% {
+    opacity: 0.7;
+    text-shadow: 0 0 4px #39FF14, 0 0 7px #39FF14, 0 0 14px #39FF14;
+  }
+}
+
+@keyframes palmSway {
+  0%,
+  100% {
+    transform: rotate(-3deg) translateY(0);
+  }
+  50% {
+    transform: rotate(3deg) translateY(-5px);
+  }
+}
+
+@keyframes steamRise {
+  0% {
+    opacity: 0.8;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px) scale(1.5);
+  }
+}
+
+@keyframes goldShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.animate-neon-pulse {
+  animation: neonPulse 2s ease-in-out infinite;
+}
+
+.animate-palm-sway {
+  animation: palmSway 4s ease-in-out infinite;
+}
+
+.animate-steam-rise {
+  animation: steamRise 3s ease-out infinite;
+}
+
+.animate-gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #D4AF37 0%,
+    #F0D66A 25%,
+    #D4AF37 50%,
+    #F0D66A 75%,
+    #D4AF37 100%
+  );
+  background-size: 200% auto;
+  animation: goldShimmer 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}

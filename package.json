@@ -1,0 +1,51 @@
+{
+  "name": "la-bianca-bitcoin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write \"**/*.{ts,tsx,json,css,md}\"",
+    "generate:qr": "tsx scripts/generate-qr-batch.ts",
+    "seed": "tsx scripts/seed-demo-data.ts"
+  },
+  "dependencies": {
+    "next": "^14.2.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "graphql-request": "^7.1.0",
+    "qrcode.react": "^3.1.0",
+    "canvas-confetti": "^1.9.3",
+    "next-themes": "^0.3.0",
+    "lucide-react": "^0.400.0",
+    "@radix-ui/react-dialog": "^1.1.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.3.0",
+    "@supabase/ssr": "^0.5.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "framer-motion": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0",
+    "tailwindcss": "^3.4.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/jest-dom": "^6.0.0",
+    "vitest": "^2.0.0",
+    "jsdom": "^24.0.0",
+    "prettier": "^3.3.0",
+    "eslint": "^8.0.0",
+    "@types/qrcode.react": "^1.0.0"
+  }
+}

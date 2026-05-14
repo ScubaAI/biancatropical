@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🌴 Tropical Luxe: Variables por tema */
+:root {
+  --bg-primary: #FAF7F2;
+  --bg-surface: rgba(255, 255, 255, 0.65);
+  --accent-primary: #E07A5F;
+  --accent-secondary: #3D5A51;
+  --text-primary: #1A1A1A;
+  --text-muted: #4A4A4A;
+  --glass-border: rgba(212, 175, 55, 0.3);
+  --glow-color: rgba(212, 175, 55, 0.4);
+}
+
+[data-theme="night"] {
+  --bg-primary: #0F0F1E;
+  --bg-surface: rgba(15, 15, 30, 0.7);
+  --accent-primary: #FF2E93;
+  --accent-secondary: #00F5D4;
+  --text-primary: #F5F5F5;
+  --text-muted: #A0A0B0;
+  --glass-border: rgba(0, 245, 212, 0.25);
+  --glow-color: rgba(255, 46, 147, 0.5);
+}
+
+@layer base {
+  body {
+    @apply bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors duration-500;
+    font-family: theme('fontFamily.sans');
+  }
+  h1, h2, h3, h4 {
+    font-family: theme('fontFamily.serif');
+    letter-spacing: -0.02em;
+  }
+  .font-btc {
+    font-family: theme('fontFamily.mono');
+  }
+}
+
+@layer utilities {
+  .glass-tropical {
+    @apply backdrop-blur-md bg-[var(--bg-surface)] border border-[var(--glass-border)] rounded-2xl shadow-lg;
+    box-shadow: 0 8px 32px var(--glow-color);
+  }
+  .text-glow {
+    text-shadow: 0 0 12px var(--accent-primary);
+  }
+  .btn-primary {
+    @apply bg-[var(--accent-primary)] hover:brightness-110 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg active:scale-95;
+  }
+}

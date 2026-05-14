@@ -1,0 +1,71 @@
+/* ============================================================
+   TROPICAL LUXE — Design System CSS Variables
+   ============================================================ */
+
+:root {
+  /* Primary palette */
+  --color-gold: #D4AF37;
+  --color-gold-dark: #B8962E;
+  --color-gold-light: #F0D66A;
+
+  /* Secondary palette */
+  --color-forest: #2D5016;
+  --color-forest-light: #3D6B26;
+  --color-deep-red: #8B1A1A;
+  --color-warm-cream: #FFF8E7;
+  --color-sand: #F5E6CC;
+
+  /* Accent (night mode) */
+  --color-neon-green: #39FF14;
+  --color-neon-blue: #00D4FF;
+  --color-midnight: #0A0A0A;
+  --color-dark-navy: #1A1A2E;
+
+  /* Semantic */
+  --color-primary: var(--color-gold);
+  --color-secondary: var(--color-forest);
+  --color-accent: var(--color-neon-green);
+  --color-background: var(--color-warm-cream);
+  --color-foreground: var(--color-midnight);
+
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-mono: 'Space Grotesk', monospace;
+  --font-sans: 'Montserrat', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Borders */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --shadow-neon: 0 0 20px rgba(57, 255, 20, 0.3);
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* Night mode overrides */
+[data-theme='dark'],
+.dark {
+  --color-background: var(--color-midnight);
+  --color-foreground: var(--color-warm-cream);
+  --color-primary: var(--color-gold-light);
+  --color-accent: var(--color-neon-green);
+}
