@@ -15,12 +15,13 @@ export interface ParsedQR {
 export function parseScannedQR(scannedData: string): ParsedQR {
   // Try to extract metadata from the raw scanned data
   const metadata = extractMetadata(scannedData)
+  const isObject = typeof metadata === 'object' && metadata !== null
 
   return {
     rawData: metadata,
-    mesaNombre: metadata.mesaId ?? undefined,
-    meseroNombre: metadata.meseroId ?? undefined,
-    businessId: metadata.businessId ?? undefined,
+    mesaNombre: isObject ? (metadata as QRMetadata).mesaId : undefined,
+    meseroNombre: isObject ? (metadata as QRMetadata).meseroId : undefined,
+    businessId: isObject ? (metadata as QRMetadata).businessId : undefined,
     paymentUrl: typeof metadata === 'string' ? metadata : undefined,
   }
 }

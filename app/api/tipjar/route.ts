@@ -3,7 +3,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server'
-import { createInvoice } from '@/lib/blink/invoice'
+import { createLightningInvoice } from '@/lib/blink/invoice'
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,23 +20,25 @@ export async function POST(request: NextRequest) {
     // TODO: add authentication check
     // const user = await getCurrentUser(request)
 
-    const invoice = await createInvoice({
-      amount,
-      mesaId,
-      meseroId,
+    const memo = `Propina La Bianca Tropical ⚡${mesaId ? ` - Mesa ${mesaId}` : ''}${meseroId ? ` - Mesero ${meseroId}` : ''}`
+    
+    const result = await createLightningInvoice({
+      amountSat: amount,
+      memo,
     })
 
-    if (!invoice) {
+    if (!result.success || !result.paymentRequest) {
       return NextResponse.json(
-        { error: 'Error al crear invoice' },
+        { error: result.error || 'Error al crear invoice' },
         { status: 500 }
       )
     }
 
     return NextResponse.json({
       success: true,
-      invoice,
-      lightningUrl: `lightning:${invoice}`,
+      paymentRequest: result.paymentRequest,
+      expiresAt: result.expiresAt,
+      lightningUrl: `lightning:${result.paymentRequest}`,
     })
   } catch (error) {
     console.error('[TipJar API] Error:', error)

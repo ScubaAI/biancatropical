@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { QRCodeSVG } from "qrcode.react";
-import { createLightningInvoice } from "@/lib/blink/invoice";
+import { useLightningInvoice } from "./useLightningInvoice";
 
 type TipState = "idle" | "generating" | "ready" | "success" | "error";
 
@@ -13,6 +13,7 @@ export default function TipJar() {
   const [selectedAmount, setSelectedAmount] = useState<number>(1000);
   const [paymentRequest, setPaymentRequest] = useState<string>("");
   const [expiresAt, setExpiresAt] = useState<Date | null>(null);
+  const { createInvoice } = useLightningInvoice();
 
   // Animación lightning-strike (extraída del DS para evitar depender de globals.css)
   const lightningStyle = `
@@ -26,9 +27,9 @@ export default function TipJar() {
 
   const handleGenerate = async () => {
     setState("generating");
-    const result = await createLightningInvoice({ amountSat: selectedAmount });
+    const result = await createInvoice(selectedAmount);
     
-    if (result.success && result.paymentRequest) {
+    if (result && result.paymentRequest) {
       setPaymentRequest(result.paymentRequest);
       setExpiresAt(result.expiresAt ? new Date(result.expiresAt) : null);
       setState("ready");

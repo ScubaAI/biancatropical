@@ -4,56 +4,54 @@ import { useState } from 'react';
 
 interface LightningInvoice {
   paymentRequest: string;
-  paymentHash: string;
+  paymentHash?: string;
   expiresAt: string;
 }
 
 interface UseLightningInvoiceReturn {
-  createInvoice: (amountSats: number, memo?: string) => Promise<LightningInvoice | null>;
+  createInvoice: (amountSats: number, mesaId?: string, meseroId?: string) => Promise<LightningInvoice | null>;
   loading: boolean;
   error: string | null;
 }
 
-// Placeholder para Blink API GraphQL
-// En producción: usar @blink/bitcoin SDK
 export function useLightningInvoice(): UseLightningInvoiceReturn {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const createInvoice = async (
     amountSats: number,
-    memo: string = 'Propina - La Bianca'
+    mesaId?: string,
+    meseroId?: string
   ): Promise<LightningInvoice | null> => {
     setLoading(true);
     setError(null);
 
     try {
-      // Placeholder - Simulación
-      // En producción: llamada GraphQL a Blink API
-      /*
-      mutation LnInvoiceCreate {
-        lnInvoiceCreate(input: {
-          amount: amountSats
-          memo: memo
-        }) {
-          invoice {
-            paymentRequest
-            paymentHash
-            expiresAt
-          }
-        }
-      }
-      */
-      
-      const mockInvoice: LightningInvoice = {
-        paymentRequest: `lnbc${amountSats}n1p...mock...`,
-        paymentHash: `mock_hash_${Date.now()}`,
-        expiresAt: new Date(Date.now() + 3600000).toISOString(),
-      };
+      const response = await fetch('/api/tipjar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: amountSats,
+          mesaId,
+          meseroId,
+        }),
+      });
 
-      return mockInvoice;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error creating invoice');
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'No se pudo generar el código de pago');
+      }
+
+      return {
+        paymentRequest: data.paymentRequest,
+        expiresAt: data.expiresAt,
+      };
+    } catch (err: any) {
+      const errorMessage = err.message || 'Error al conectar con el servidor';
+      setError(errorMessage);
       return null;
     } finally {
       setLoading(false);

@@ -46,4 +46,4 @@ const nextConfig = {
   // Sass/PostCSS handled via tailwind config
 }
 
-module.exports = nextConfig
+export default nextConfig

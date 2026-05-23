@@ -1,4 +1,4 @@
-export { TipJar } from './TipJar';
+export { default as TipJar } from './TipJar';
 export { PosDisplay } from './PosDisplay';
 export { PosKeypad } from './PosKeypad';
 export { useBtcRate, convertMXNtoSats } from './useBtcRate';

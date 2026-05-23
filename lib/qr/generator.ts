@@ -6,7 +6,7 @@ export interface QRMetadata {
   mesaId?: string
   meseroId?: string
   businessId?: string
-  timestamp: number
+  timestamp?: number
 }
 
 export function generateQRPayload(metadata: QRMetadata): string {

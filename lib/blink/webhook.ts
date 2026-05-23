@@ -1,11 +1,15 @@
 // ============================================================
-// WEBHOOK VALIDATOR — Validate Blink webhook signatures
+// WEBHOOK VALIDATOR — Validate Blink webhook signatures (Updated Implementation)
 // ============================================================
+
+import { validateBlinkWebhook, WebhookValidationResult } from '@/lib/security/webhooks'
 
 export interface WebhookVerificationResult {
   valid: boolean
   payload?: Record<string, unknown>
   error?: string
+  tenantSlug?: string
+  isDuplicate?: boolean
 }
 
 export async function verifyWebhookSignature(
@@ -13,12 +17,30 @@ export async function verifyWebhookSignature(
   signature: string,
   webhookSecret: string
 ): Promise<WebhookVerificationResult> {
-  // TODO: implement HMAC-SHA256 signature verification
-  // Blink signs webhook payloads with a shared secret
+  // This is now a wrapper for the more secure implementation
+  // For backward compatibility, we'll adapt the interface
+  
+  // Create a mock request object for the new validation function
+  const mockRequest = {
+    text: () => Promise.resolve(rawBody),
+    headers: {
+      get: (key: string) => {
+        if (key.toLowerCase() === 'x-blink-signature' || key === 'X-Signature') {
+          return signature
+        }
+        return null
+      }
+    } as Headers
+  } as unknown as Request
 
+  // Use the new secure validation
+  const result = await validateBlinkWebhook(mockRequest as any)
+  
   return {
-    valid: true,
-    payload: {},
+    valid: result.isValid,
+    error: result.error,
+    tenantSlug: result.tenantSlug,
+    isDuplicate: result.isDuplicate
   }
 }
 
