@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import { getBlinkClient, createInvoice } from '@/lib/blink'
+import { getBlinkClient } from '@/lib/blink/client'
 
 vi.mock('@/lib/blink/client', () => ({
   getBlinkClient: vi.fn(() => ({

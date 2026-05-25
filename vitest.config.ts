@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitest/config'
-import tsconfigPaths from 'vitest/configure/tsconfigPaths'
+import path from 'path'
 
 export default defineConfig({
   test: {
@@ -7,5 +7,9 @@ export default defineConfig({
     setupFiles: ['./tests/setup.ts'],
     globals: true,
   },
-  plugins: [tsconfigPaths()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './'),
+    },
+  },
 })

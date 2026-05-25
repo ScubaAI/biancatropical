@@ -137,11 +137,11 @@ export async function validateBlinkWebhook(request: NextRequest): Promise<Webhoo
   const isDuplicate = await checkIdempotency(eventId);
   if (isDuplicate) {
     logWebhook(eventId, event, true, request.headers.get('x-forwarded-for')?.split(',')[0]);
-    return { isValid: true, eventId, isDuplicate: true, tenantSlug: data?.metadata?.tenant_slug as string };
+    return { isValid: true, eventId, isDuplicate: true, tenantSlug: (data as any)?.metadata?.tenant_slug as string };
   }
 
   // Extract tenant context (supports slug or direct ID from Blink metadata)
-  const tenantSlug = (data?.metadata?.tenant_slug || data?.metadata?.tenant_id) as string | undefined;
+  const tenantSlug = ((data as any)?.metadata?.tenant_slug || (data as any)?.metadata?.tenant_id) as string | undefined;
 
   return { isValid: true, eventId, tenantSlug };
 }

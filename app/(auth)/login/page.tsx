@@ -42,8 +42,11 @@ export default function LoginPage() {
     const validation = loginSchema.safeParse(formData);
     if (!validation.success) {
       const fieldErrors: Record<string, string> = {};
-      validation.error.errors.forEach(err => {
-        fieldErrors[err.path[0]] = err.message;
+      validation.error.issues.forEach(issue => {
+        const path = issue.path[0];
+        if (typeof path === 'string') {
+          fieldErrors[path] = issue.message;
+        }
       });
       setErrors(fieldErrors);
       return;
